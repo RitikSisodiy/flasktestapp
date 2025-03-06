@@ -5,6 +5,8 @@ app = Flask(__name__)
 @app.route('/webhook', methods=['POST'])
 def webhook():
     validation_token = request.args.get('validationtoken')
+    print(validation_token)
+    print(request.args)
     if validation_token:
         return validation_token, 200
     # Handle other webhook events here

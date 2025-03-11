@@ -23,7 +23,6 @@ SP_SITE_URL = "https://emiratesglobalaluminium.sharepoint.com"
 
 
 blob_service_client = BlobServiceClient.from_connection_string(STORAGE_CONNECTION_STRING)
-app = func.FunctionApp()
 
 def save_to_cache(key, data):
     data = {"url":data}

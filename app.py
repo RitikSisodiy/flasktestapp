@@ -6,7 +6,7 @@ import requests
 from azure.storage.blob import BlobServiceClient
 import time
 import json
-import os
+import os   
 # Environment variables (replace with your actual values)
 blob_id_name_delemeter = "/"
 TENANT_ID = "122ec050-e4e4-47e8-862a-5c4b5d574201"
@@ -77,6 +77,22 @@ def webhook():
         print("changes are procssed")
     print("returning success status")
     return jsonify({'status': 'received'}), 200
+
+
+@app.route("/custom-split", methods=["POST"])
+def custom_split():
+    data = request.json
+    values = data.get("values", [])
+    results = []
+
+    for item in values:
+        text = item.get("data", "")
+        # Split text by sentence (custom rule: split at periods, but keep them)
+        chunks = re.split(r'(?<=\.)\s+', text)
+        results.append({"data": chunks})
+
+    return jsonify({"values": results})
+
 
 def get_changes(site_name, list_id):
     key = "cache.txt"

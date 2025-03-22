@@ -192,7 +192,7 @@ def custom_split():
     results = []
 
     for item in values:
-        text = item.get("data", "")
+        text = item.get("data", {}).get("text", "")
         # Split text by sentence (custom rule: split at periods, but keep them)
         chunks = re.split(r'(?<=\.)\s+', text)
         results.append({"data": chunks})

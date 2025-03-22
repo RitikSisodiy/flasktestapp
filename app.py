@@ -192,10 +192,14 @@ def custom_split():
     results = []
 
     for item in values:
+        record_id = item.get("recordId", "1")
         text = item.get("data", {}).get("text", "")
         # Split text by sentence (custom rule: split at periods, but keep them)
         chunks = re.split(r'(?<=\.)\s+', text)
-        results.append({"data": chunks})
+        results.append({
+            "recordId": record_id,
+            "data": {"split_text": chunks}  # Wrap split text in a dictionary
+        })
 
     return jsonify({"values": results})
 

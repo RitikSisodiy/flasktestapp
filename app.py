@@ -175,7 +175,31 @@ def get_site_id(SITE_NAME_IS,access_token=None):
 
 
 
+def chunk_text(text, chunk_size=1000, overlap_size=100):
+    """
+    Splits text into overlapping chunks.
 
+    Args:
+        text (str): The input text to split.
+        chunk_size (int): The size of each chunk.
+        overlap_size (int): The number of characters to overlap between chunks.
+
+    Returns:
+        list: A list of text chunks.
+    """
+    chunks = []
+    start = 0
+    text_length = len(text)
+
+    while start < text_length:
+        end = min(start + chunk_size, text_length)
+        chunks.append(text[start:end])
+
+        if end == text_length:
+            break  # Stop if we've reached the end
+        start += chunk_size - overlap_size
+
+    return chunks
 
 @app.route("/custom-split", methods=["POST"])
 def custom_split():
@@ -195,10 +219,12 @@ def custom_split():
         record_id = item.get("recordId", "1")
         text = item.get("data", {}).get("text", "")
         # Split text by sentence (custom rule: split at periods, but keep them)
-        chunks = re.split(r'(?<=\.)\s+', text)
+        chunks = chunk_text(text)
+
+        # Ensure response format is correct for Azure AI Search
         results.append({
             "recordId": record_id,
-            "data": {"split_text": chunks}  # Wrap split text in a dictionary
+            "data": {"split_text": chunks}  # Wrap chunks in a dictionary
         })
 
     return jsonify({"values": results})

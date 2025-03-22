@@ -7,6 +7,7 @@ from azure.storage.blob import BlobServiceClient
 import time
 import json
 import os
+import re
 # Environment variables (replace with your actual values)
 blob_id_name_delemeter = "/"
 TENANT_ID = "122ec050-e4e4-47e8-862a-5c4b5d574201"
@@ -179,6 +180,14 @@ def get_site_id(SITE_NAME_IS,access_token=None):
 @app.route("/custom-split", methods=["POST"])
 def custom_split():
     data = request.json
+    print("Query Parameters:", request.args)
+
+    # Print raw request data
+    print("Raw Data:", request.data)
+
+    # Print JSON data if available
+    if request.is_json:
+        print("JSON Data:", data)
     values = data.get("values", [])
     results = []
 

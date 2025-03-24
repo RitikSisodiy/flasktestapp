@@ -229,6 +229,41 @@ def custom_split():
 
     return jsonify({"values": results})
 
+from document_intelligence import analyze_layout
+@app.route("/process_doc", methods=["POST"])
+def process_doc():
+    data = request.json
+    print("Query Parameters:", request.args)
+
+    # Print raw request data
+    print("Raw Data:", request.data)
+
+    # Print JSON data if available
+    if request.is_json:
+        print("JSON Data:", data)
+    values = data.get("values", [])
+    results = []
+    for item in values:
+        file_data = item.get("data", {}).get("file_data", "")
+        file_name = item.get("data", {}).get("file_name", "uploaded_file")
+
+        if not file_data:
+            continue
+
+        # Save file locally
+
+        # Extract text
+        extracted_text = analyze_layout(file_data)
+
+        # Create response
+        results.append({
+            "recordId": item["recordId"],
+            "data": {"content": extracted_text},  # Limiting text for preview
+            "errors": None,
+            "warnings": None
+        })
+    return jsonify({"values": results})
+
 
 def get_changes(site_name, list_id):
     key = "cache.txt"

@@ -2,7 +2,6 @@ flask
 gunicorn
 requests
 azure-storage-blob
-python-dotenv
 openai
 azure-ai-documentintelligence
 azure-identity

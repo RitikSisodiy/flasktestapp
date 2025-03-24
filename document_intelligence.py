@@ -13,20 +13,8 @@ This code loads environment variables using the `dotenv` library and sets the ne
 The environment variables are loaded from the `.env` file in the same directory as this notebook.
 """
 
-import os
-from azure.core.credentials import AzureKeyCredential
-from azure.ai.documentintelligence import DocumentIntelligenceClient
-from azure.ai.documentintelligence.models import DocumentContentFormat
-from openai import AzureOpenAI
 
 
-doc_intelligence_endpoint = os.getenv("AZURE_DOCUMENT_INTELLIGENCE_ENDPOINT")
-doc_intelligence_key = os.getenv("AZURE_DOCUMENT_INTELLIGENCE_KEY")
-
-aoai_api_base = os.getenv("AZURE_OPENAI_ENDPOINT")
-aoai_api_key = os.getenv("AZURE_OPENAI_API_KEY")
-aoai_deployment_name="gpt-4v"
-aoai_api_version="2024-02-15-preview"
 
 
 
@@ -355,13 +343,13 @@ def analyze_layout(input_file_path, output_folder):
 
 
 
-doc_intelligence_endpoint = os.environ.get("doc_intelligence_endpoint")
-doc_intelligence_key = os.environ.get("doc_intelligence_key")
+doc_intelligence_endpoint = os.getenv("AZURE_DOCUMENT_INTELLIGENCE_ENDPOINT")
+doc_intelligence_key = os.getenv("AZURE_DOCUMENT_INTELLIGENCE_KEY")
 
-aoai_api_base = os.environ.get("aoai_api_base")
-aoai_api_key = os.environ.get("aoai_api_key")
-aoai_deployment_name = os.environ.get("aoai_deployment_name")
-aoai_api_version = os.environ.get("aoai_api_version")
+aoai_api_base = os.getenv("AZURE_OPENAI_ENDPOINT")
+aoai_api_key = os.getenv("AZURE_OPENAI_API_KEY")
+aoai_deployment_name="gpt-4v"
+aoai_api_version="2024-02-15-preview"
 
 
 

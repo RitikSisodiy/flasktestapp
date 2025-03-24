@@ -4,7 +4,6 @@ The environment variables are loaded from the `.env` file in the same directory 
 """
 
 import os
-from dotenv import load_dotenv
 from azure.core.credentials import AzureKeyCredential
 from azure.ai.documentintelligence import DocumentIntelligenceClient
 from azure.ai.documentintelligence.models import DocumentContentFormat
@@ -15,13 +14,11 @@ The environment variables are loaded from the `.env` file in the same directory 
 """
 
 import os
-from dotenv import load_dotenv
 from azure.core.credentials import AzureKeyCredential
 from azure.ai.documentintelligence import DocumentIntelligenceClient
 from azure.ai.documentintelligence.models import DocumentContentFormat
 from openai import AzureOpenAI
 
-load_dotenv()
 
 doc_intelligence_endpoint = os.getenv("AZURE_DOCUMENT_INTELLIGENCE_ENDPOINT")
 doc_intelligence_key = os.getenv("AZURE_DOCUMENT_INTELLIGENCE_KEY")
@@ -357,7 +354,6 @@ def analyze_layout(input_file_path, output_folder):
     return md_content
 
 
-load_dotenv()
 
 doc_intelligence_endpoint = os.environ.get("doc_intelligence_endpoint")
 doc_intelligence_key = os.environ.get("doc_intelligence_key")

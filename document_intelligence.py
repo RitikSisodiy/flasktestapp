@@ -604,6 +604,7 @@ def analyze_layout(input_file_path):
         str: The updated Markdown content with figure descriptions.
 
     """
+    print("key++++++++++++++++++++++",doc_intelligence_key)
     output_folder =  tempfile.gettempdir()
     document_intelligence_client = DocumentIntelligenceClient(
         endpoint=doc_intelligence_endpoint,

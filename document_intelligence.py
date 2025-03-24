@@ -600,6 +600,7 @@ def analyze_layout(input_file_data,file_name):
 
     """
     # print("key++++++++++++++++++++++",doc_intelligence_key)
+    output_folder = tempfile.gettempdir()
     input_file_path = save_base64_file(input_file_data, file_name)
     document_intelligence_client = DocumentIntelligenceClient(
         endpoint=doc_intelligence_endpoint,

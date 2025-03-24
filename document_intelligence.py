@@ -587,7 +587,7 @@ def save_base64_file(base64_string, file_name):
 
     return file_path
 
-def analyze_layout(input_file_path,file_name):
+def analyze_layout(input_file_data,file_name):
     """
     Analyzes the layout of a document and extracts figures along with their descriptions, then update the markdown output with the new description.
 
@@ -600,14 +600,14 @@ def analyze_layout(input_file_path,file_name):
 
     """
     # print("key++++++++++++++++++++++",doc_intelligence_key)
-    input_file_path = save_base64_file(input_file_path, file_name)
+    input_file_path = save_base64_file(input_file_data, file_name)
     document_intelligence_client = DocumentIntelligenceClient(
         endpoint=doc_intelligence_endpoint,
         credential=AzureKeyCredential(doc_intelligence_key),
         headers={"x-ms-useragent":"sample-code-figure-understanding/1.0.0"},
     )
     poller = document_intelligence_client.begin_analyze_document(
-        "prebuilt-layout", body=input_file_path, content_type="application/octet-stream", output_content_format=DocumentContentFormat.MARKDOWN
+        "prebuilt-layout", body=base64.b64decode(input_file_data), content_type="application/octet-stream", output_content_format=DocumentContentFormat.MARKDOWN
     )
 
     result = poller.result()

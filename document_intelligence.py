@@ -348,8 +348,8 @@ doc_intelligence_key = os.getenv("AZURE_DOCUMENT_INTELLIGENCE_KEY")
 
 aoai_api_base = os.getenv("AZURE_OPENAI_ENDPOINT")
 aoai_api_key = os.getenv("AZURE_OPENAI_API_KEY")
-aoai_deployment_name="gpt-4o"
-aoai_api_version="2024-12-01-preview"
+aoai_deployment_name=os.getenv("AZURE_OPENAI_API_DEPLOYMENT_NAME")
+aoai_api_version=os.getenv("AZURE_OPENAI_API_DEPLOYMENT_VERSION")
 
 
 

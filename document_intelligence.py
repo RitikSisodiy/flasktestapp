@@ -689,5 +689,5 @@ def analyze_layout(input_file_data,file_name):
             # print(md_content)
             md_content = update_figure_description(md_content, cropped_image_filename, idx)
 
-    return md_content
+    return [md_content]
 

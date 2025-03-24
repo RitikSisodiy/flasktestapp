@@ -348,8 +348,8 @@ doc_intelligence_key = os.getenv("AZURE_DOCUMENT_INTELLIGENCE_KEY")
 
 aoai_api_base = os.getenv("AZURE_OPENAI_ENDPOINT")
 aoai_api_key = os.getenv("AZURE_OPENAI_API_KEY")
-aoai_deployment_name="gpt-4v"
-aoai_api_version="2024-02-15-preview"
+aoai_deployment_name="gpt-4o"
+aoai_api_version="2024-12-01-preview"
 
 
 
@@ -456,7 +456,7 @@ def understand_image_with_gptv(api_base, api_key, deployment_name, api_version, 
     Returns:
     - img_description (str): The generated description for the image.
     """
-    return "this is sample image description"
+    # return "this is sample image description"
     client = AzureOpenAI(
         api_key=api_key,
         api_version=api_version,
@@ -687,7 +687,7 @@ def analyze_layout(input_file_data,file_name):
 
             # replace_figure_description(figure_content, img_description, idx)
             # print(md_content)
-            md_content = update_figure_description(md_content, cropped_image_filename, idx)
+            md_content = update_figure_description(md_content, img_description, idx)
 
     return [md_content]
 

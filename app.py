@@ -262,6 +262,7 @@ def process_doc():
             "errors": None,
             "warnings": None
         })
+    print(json.dumps({"values": results},indent=4))
     return jsonify({"values": results})
 
 

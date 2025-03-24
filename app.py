@@ -253,7 +253,7 @@ def process_doc():
         # Save file locally
 
         # Extract text
-        extracted_text = analyze_layout(file_data["data"])
+        extracted_text = analyze_layout(file_data["data"],file_name)
 
         # Create response
         results.append({

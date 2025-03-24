@@ -576,7 +576,18 @@ def update_figure_description(md_content, img_description, idx):
 import tempfile
 
 
-def analyze_layout(input_file_path):
+def save_base64_file(base64_string, file_name):
+    """Decode base64 file and save it locally."""
+    output_folder = tempfile.gettempdir()
+    file_path = f"{output_folder}/{file_name}"
+    os.makedirs("temp", exist_ok=True)
+
+    with open(file_path, "wb") as f:
+        f.write(base64.b64decode(base64_string))
+
+    return file_path
+
+def analyze_layout(input_file_path,file_name):
     """
     Analyzes the layout of a document and extracts figures along with their descriptions, then update the markdown output with the new description.
 
@@ -588,15 +599,15 @@ def analyze_layout(input_file_path):
         str: The updated Markdown content with figure descriptions.
 
     """
-    print("key++++++++++++++++++++++",doc_intelligence_key)
-    output_folder =  tempfile.gettempdir()
+    # print("key++++++++++++++++++++++",doc_intelligence_key)
+    input_file_path = save_base64_file(input_file_path, file_name)
     document_intelligence_client = DocumentIntelligenceClient(
         endpoint=doc_intelligence_endpoint,
         credential=AzureKeyCredential(doc_intelligence_key),
         headers={"x-ms-useragent":"sample-code-figure-understanding/1.0.0"},
     )
     poller = document_intelligence_client.begin_analyze_document(
-        "prebuilt-layout", body=base64.b64decode(input_file_path), content_type="application/octet-stream", output_content_format=DocumentContentFormat.MARKDOWN
+        "prebuilt-layout", body=input_file_path, content_type="application/octet-stream", output_content_format=DocumentContentFormat.MARKDOWN
     )
 
     result = poller.result()
